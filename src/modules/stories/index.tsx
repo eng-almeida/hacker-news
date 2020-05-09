@@ -1,11 +1,9 @@
 import React, { useContext } from "react";
 import { Table, Typography } from "antd";
-import useStories from "../../hooks/useStories";
+import useStories, { pageSize } from "../../hooks/useStories";
 import { StoriesContext } from "../../context/stories";
 
 const { Text } = Typography;
-
-export const pageSize = 5;
 
 const columns = [
   {
@@ -68,7 +66,7 @@ const Stories = () => {
   }
 
   if (stories.length === 0) {
-    return <Text type="warning">Error fetching stories</Text>;
+    return null;
   }
 
   return <Table columns={columns}
