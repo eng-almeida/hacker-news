@@ -24,14 +24,14 @@ const useStories = (type: StoryType) => {
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<boolean>(false);
   const stories = type === "topstories" ? state.topstories : state.newstories;
-  const setInitialLoad = useCallback((stories, storyType) => {
+  const saveInitialStories = useCallback((stories, storyType) => {
     dispatch({
       type: 'INITIAL_LOAD',
       stories,
       storyType
     });
   }, []);
-  const setLoadPage = useCallback((stories, storyType, page) => {
+  const saveStories = useCallback((stories, storyType, page) => {
     dispatch({
       type: 'LOAD_PAGE',
       stories,
@@ -48,12 +48,13 @@ const useStories = (type: StoryType) => {
     if (storiesFromPage.every(p => typeof p === 'number')) {
       try {
         const results = await Promise.all(storiesFromPage.map((story: any) => fetchItem(getItemUrl(story))));
-        setLoadPage(results, type, page);
+        saveStories(results, type, page);
+        setPage(page);
+        error && setError(false);
       } catch {
-        // TODO: display error
+        setError(true);
       }
     }
-    setPage(page);
   };
 
   useEffect(() => {
@@ -67,7 +68,7 @@ const useStories = (type: StoryType) => {
         const results = await Promise.all(
           firstPage.map(story => fetchItem(getItemUrl(String(story))))
         );
-        setInitialLoad([results, ...otherPages], type);
+        saveInitialStories([results, ...otherPages], type);
       } catch {
         setError(true);
       } finally {
@@ -80,13 +81,20 @@ const useStories = (type: StoryType) => {
      * @param type 
      */
     const fetchItemsList = async (type: string) => {
-      const result = await fetchItem(getStoriesUrl(type))
-      fetchFirstPage(result);
+      try {
+        const result = await fetchItem(getStoriesUrl(type))
+        fetchFirstPage(result);
+        // Go back to first page
+        setPage(0);
+        // Clear previous errors if exist
+        error && setError(false);
+      } catch {
+        setError(true);
+      }
     }
 
     fetchItemsList(type);
-    setPage(0);
-  }, [setInitialLoad, type])
+  }, [error, saveInitialStories, type])
 
   return {
     stories,
