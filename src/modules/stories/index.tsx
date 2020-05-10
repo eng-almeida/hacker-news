@@ -1,5 +1,5 @@
 import React, { useContext } from "react";
-import { Table, Typography } from "antd";
+import { Table, Typography, Row, Col } from "antd";
 import useStories, { pageSize } from "../../hooks/useStories";
 import { StoriesContext } from "../../context/stories";
 
@@ -58,7 +58,9 @@ const Stories = () => {
   const { stories, page, fetchMore, error, loading } = useStories(storyType);
 
   if (loading) {
-    return <Text>Loading stories...</Text>
+    return <Row justify="center">
+      <Col><Text>Loading stories...</Text></Col>
+    </Row>
   }
 
   if (error) {
@@ -70,14 +72,12 @@ const Stories = () => {
   }
 
   return <Table columns={columns}
-    dataSource={stories[page].map((s: any, i: number) => ({ ...s, key: i }))}
+    dataSource={stories[page].map((story, key) => ({ ...story, key }))}
     pagination={{
       pageSize,
       total: stories.length,
       showSizeChanger: false,
-      onChange: (page) => {
-        fetchMore(page - 1);
-      }
+      onChange: (page) => fetchMore(page - 1)
     }}
   />
 }

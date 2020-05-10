@@ -3,6 +3,7 @@ import { initialState, reducer } from "../reducers/stories";
 import { StoryType } from "../context/stories";
 
 export const pageSize = 5;
+
 const BASE_URL = 'https://hacker-news.firebaseio.com';
 const getStoriesUrl = (type: string) => `${BASE_URL}/v0/${type}.json?print=pretty`;
 const getItemUrl = (id: string) => `${BASE_URL}/v0/item/${id}.json?print=pretty`;
@@ -45,8 +46,12 @@ const useStories = (type: StoryType) => {
   const fetchMore = async (page: number) => {
     const storiesFromPage = stories[page];
     if (storiesFromPage.every(p => typeof p === 'number')) {
-      const results = await Promise.all(storiesFromPage.map((story: any) => fetchItem(getItemUrl(story))));
-      setLoadPage(results, type, page);
+      try {
+        const results = await Promise.all(storiesFromPage.map((story: any) => fetchItem(getItemUrl(story))));
+        setLoadPage(results, type, page);
+      } catch {
+        // TODO: display error
+      }
     }
     setPage(page);
   };

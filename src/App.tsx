@@ -8,11 +8,30 @@ import TimeTags from "./modules/time-tags";
 import Separator from "./components/separator";
 import { StoriesContext, StoryType } from "./context/stories";
 
+import { colors } from './theme';
 import './App.less';
+import styled from '@emotion/styled';
 
 const { Title } = Typography;
 
 const { Content, Sider } = Layout;
+
+const Main = styled(Layout)`
+  margin-left: 75px;
+  background: ${colors['white']};
+  main {
+    margin: 0 16px
+  }
+`;
+
+const WelcomeContainer = styled(Row)`
+  background: #f6f6f6;
+  padding-top: 24px;
+  & > .ant-col {
+    width: 1168px;
+    padding-left: 156px;
+  }
+`
 
 function App() {
   const [storyType, setStoryType] = useState<StoryType>("topstories");
@@ -21,7 +40,7 @@ function App() {
       <Layout style={{ background: 'none' }}>
         <Sider
           style={{
-            background: "#fff",
+            background: colors['white'],
             overflow: "auto",
             height: "100vh",
             position: "fixed",
@@ -31,10 +50,10 @@ function App() {
         >
           <SideBar />
         </Sider>
-        <Layout style={{ marginLeft: "75px", background: "#ffffff" }}>
-          <Content style={{ margin: "0 16px" }}>
-            <Row style={{ background: "#f6f6f6", paddingTop: "24px", }}>
-              <Col style={{ width: "1168px", paddingLeft: "156px" }}>
+        <Main>
+          <Content>
+            <WelcomeContainer>
+              <Col>
                 <Space direction="vertical" size="large" style={{ width: "100%" }}>
                   <Welcome />
                   <Row>
@@ -47,16 +66,12 @@ function App() {
                   </Row>
                   <Metrics />
                 </Space>
-                <Row align="middle">
-                  <Col span={24} style={{ display: "flex", position: "relative" }}>
-                    <Separator />
-                  </Col>
-                </Row>
+                <Separator />
               </Col>
-            </Row>
+            </WelcomeContainer>
             <Stories />
           </Content>
-        </Layout>
+        </Main>
       </Layout >
     </StoriesContext.Provider>
   );

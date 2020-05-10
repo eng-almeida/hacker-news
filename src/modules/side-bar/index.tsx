@@ -6,6 +6,7 @@ import Logo from "../../components/logo";
 import Logout from "../../components/logout";
 import { SelectableMenuButton } from "../../components/menu-button";
 import { StoriesContext, StoryType } from "../../context/stories";
+import { colors } from "../../theme";
 
 type SideMenu = {
   name: string;
@@ -21,7 +22,7 @@ const Container = styled.div`
   flex-direction: column;
   justify-content: space-between;
   height: 100%;
-  border-right: 1px solid #f6f6f6;
+  border-right: 1px solid ${colors['almost-white']};
   padding: 20px 0;
 `;
 

@@ -4,8 +4,9 @@ import styled from "@emotion/styled";
 import Icon from "@ant-design/icons";
 import { WelcomeIcon } from "../../components/welcome";
 import { TitleProps } from "antd/lib/typography/Title";
+import { colors } from "../../theme";
 
-const { Text, Title, Paragraph } = Typography;
+const { Title, Paragraph } = Typography;
 
 const Section = styled.section`
   position: relative;
@@ -18,7 +19,7 @@ const Container = styled(Col)`
 `;
 
 const Greetings = styled(Title) <TitleProps>`
-  color: #ffffff !important;
+  color: ${colors['white']} !important;
   font-weight: 300 !important;
 `
 
@@ -27,7 +28,7 @@ const UserName = styled.span`
 `
 
 const Description = styled(Paragraph)`
-  color: #a4a5ef !important;
+  color: ${colors['text-color-secondary']} !important;
   font-weight: 100 !important;
 `
 

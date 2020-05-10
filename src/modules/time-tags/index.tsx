@@ -1,13 +1,14 @@
 import React, { useState } from "react";
 import { Tag } from "antd";
 import styled from '@emotion/styled';
+import { colors } from "../../theme";
 
 const { CheckableTag } = Tag;
 
 const CustomTag = styled(CheckableTag)`
   border-radius: 4px;
-  background: ${props => props.checked ? "#fff" : "transparent"};
-  color: ${props => props.checked ? "#020202" : "#aeacb9"};
+  background: ${props => props.checked ? colors['white'] : "transparent"};
+  color: ${props => props.checked ? colors['text-color'] : colors['tag-background']};
   font-size: 10px;
   box-shadow: ${props => props.checked ? "0px 0px 20px 4px rgba(0,0,0,0.05);" : "none"};
   padding: 2px 10px;

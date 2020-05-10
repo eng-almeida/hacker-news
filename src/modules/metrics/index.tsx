@@ -1,14 +1,13 @@
 import React from "react";
-import { Row, Col, Typography, Space, Button } from "antd";
+import { Row, Col } from "antd";
 import { LineChartOutlined, FundOutlined, PieChartOutlined, RadarChartOutlined } from "@ant-design/icons";
 import styled from "@emotion/styled";
 import Metric from "../../components/metric";
+import { colors } from "../../theme";
 
 type IconPlaceholderProps = {
   color: string;
 }
-
-const { Title } = Typography;
 
 const IconPlaceholder = styled('div') <IconPlaceholderProps>`
   background: ${props => props.color};
@@ -19,7 +18,7 @@ const IconPlaceholder = styled('div') <IconPlaceholderProps>`
   justify-content: center;
   align-items: center;
   span {
-    color: #ffffff;
+    color: ${colors['white']};
     font-size: 20px;
   }
 `
