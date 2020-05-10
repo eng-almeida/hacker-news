@@ -3,9 +3,13 @@
 
 Run `npm install` or `yarn install`
 
-## Run project
+## Run project locally
 
 Run `npm start` or `yarn start`
+
+## Deploy to production
+
+Run `npm run build` or `yarn build`. You can then chose a server of your preference and serve `build` folder. For example, run `yarn global add serve` and then run `serve -s build`
 
 ## Run tests
 
