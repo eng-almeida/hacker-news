@@ -41,7 +41,11 @@ const columns = [
     key: 'time',
     dataIndex: 'time',
     width: 136,
-    render: (text: string) => <Text type="secondary">{text}</Text>,
+    render: (time: number) => {
+      const options = { year: 'numeric', month: 'long', day: 'numeric' };
+      const date = new Intl.DateTimeFormat('en-UK', options).format(new Date(time * 1000));
+      return <Text type="secondary">{date}</Text>
+    },
   },
   {
     title: 'Url',
@@ -58,7 +62,7 @@ const Stories = () => {
   const { stories, page, fetchMore, error, loading } = useStories(storyType);
 
   if (loading) {
-    return <Row justify="center">
+    return <Row justify="center" style={{ paddingTop: "16px" }}>
       <Col><Text>Loading stories...</Text></Col>
     </Row>
   }
