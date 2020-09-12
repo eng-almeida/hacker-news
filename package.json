@@ -47,7 +47,7 @@
     "@testing-library/react-hooks": "^3.2.1",
     "customize-cra": "^0.9.1",
     "fetch-mock": "^9.5.0",
-    "node-fetch": "^2.6.0",
+    "node-fetch": "^2.6.1",
     "react-app-rewired": "^2.1.6",
     "react-test-renderer": "^16.13.1",
     "whatwg-fetch": "^3.0.0"
